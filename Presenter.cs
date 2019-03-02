@@ -17,23 +17,23 @@ namespace TicTacToe
 
         public void DashedLine(int lenght, Spacing spacing)
         {
-            if (spacing == Spacing.Before) { Console.WriteLine(); }
+            if (spacing.Equals(Spacing.Before)) { Console.WriteLine(); }
             
             for (int character = 0; character < lenght; character++)
             {
                 Console.Write("-");
             }
 
-            if (spacing == Spacing.After) { Console.WriteLine(); }
+            if (spacing.Equals(Spacing.After)) { Console.WriteLine(); }
         }
 
-        public void DrawGameBoard(string[,] gameBoard)
+        public void DrawBoard(string[,] board)
         {
-            int dashedLines = 0;
+            var dashedLines = 0;
 
-            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            for (int i = 0; i < board.GetLength(0); i++)
             {
-                Console.WriteLine($" {gameBoard[i, 0]} | {gameBoard[i ,1]} | {gameBoard[i, 2]} ");
+                Console.WriteLine($" {board[i, 0]} | {board[i , 1]} | {board[i, 2]} ");
 
                 if (dashedLines > 1) { break; }
                 DashedLine(11, Spacing.After);

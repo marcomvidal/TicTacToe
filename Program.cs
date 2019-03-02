@@ -7,9 +7,9 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             var presenter = new Presenter();
-            var ticTacToe = new TicTacToe(presenter);
-            
-            ticTacToe.Play();
+            var game = new Game(presenter);
+
+            game.Play();
         }
     }
 }

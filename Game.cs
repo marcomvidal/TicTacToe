@@ -2,18 +2,18 @@ using System;
 
 namespace TicTacToe
 {
-    class TicTacToe
+    class Game
     {
         private Presenter presenter;
-        private string[,] gameBoard;
+        private string[,] board;
 
-        public TicTacToe(Presenter presenter)
+        public Game(Presenter presenter)
         {
             this.presenter = presenter;
-            this.gameBoard = InitializeGameBoard();
+            this.board = InitializeBoard();
         }
 
-        public string[,] InitializeGameBoard() {
+        public string[,] InitializeBoard() {
             return new string[3,3] {
                 {" ", " ", " "},
                 {" ", " ", " "},
@@ -24,8 +24,7 @@ namespace TicTacToe
         public void Play()
         {
             presenter.Banner();
-            presenter.DrawGameBoard(gameBoard);
-            
+            presenter.DrawBoard(board);
         }
     }
 }
