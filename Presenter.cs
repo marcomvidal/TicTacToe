@@ -18,11 +18,8 @@ namespace TicTacToe
         public void DashedLine(int lenght, Spacing spacing)
         {
             if (spacing.Equals(Spacing.Before)) { Console.WriteLine(); }
-            
-            for (int character = 0; character < lenght; character++)
-            {
-                Console.Write("-");
-            }
+
+            for (int dash = 0; dash < lenght; dash++) { Console.Write("-"); }
 
             if (spacing.Equals(Spacing.After)) { Console.WriteLine(); }
         }
@@ -35,7 +32,8 @@ namespace TicTacToe
             {
                 Console.WriteLine($" {board[i, 0]} | {board[i , 1]} | {board[i, 2]} ");
 
-                if (dashedLines > 1) { break; }
+                if (dashedLines >= 2) { break; }
+
                 DashedLine(11, Spacing.After);
                 dashedLines++;
             }
