@@ -38,5 +38,11 @@ namespace TicTacToe
                 dashedLines++;
             }
         }
+
+        public void PlayerTurn()
+        {
+            Console.WriteLine("- X turn -");
+            Console.WriteLine("Select the horizontal position:");
+        }
     }
 }
