@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Marco\\Documents\\TicTacToe\\TicTacToe.csproj",
+      "projectUniqueName": "C:\\Users\\Marco\\Documents\\TicTacToe\\TicTacToe.csproj",
       "projectName": "TicTacToe",
-      "projectPath": "c:\\Users\\Marco\\Documents\\TicTacToe\\TicTacToe.csproj",
+      "projectPath": "C:\\Users\\Marco\\Documents\\TicTacToe\\TicTacToe.csproj",
       "packagesPath": "C:\\Users\\Marco\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Marco\\Documents\\TicTacToe\\obj\\",
+      "outputPath": "C:\\Users\\Marco\\Documents\\TicTacToe\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -729,6 +729,7 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
