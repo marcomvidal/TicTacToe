@@ -8,18 +8,18 @@ namespace TicTacToe
         private Presenter presenter;
         private IList<Player> players;
         private string[,] board;
-        private bool isWon;
+        private bool hasWon;
         private IList<Func<string[,], Player, bool>> winningPatterns
             = new List<Func<string[,], Player, bool>>()
         {
-            WinningPatterns.FirstRow,
-            WinningPatterns.SecondRow,
-            WinningPatterns.ThirdRow,
-            WinningPatterns.FirstColumn,
-            WinningPatterns.SecondColumn,
-            WinningPatterns.ThirdColumn,
-            WinningPatterns.DiagonalFromLeftToRight,
-            WinningPatterns.DiagonalFromRightToLeft
+            WinningPattern.FirstRow,
+            WinningPattern.SecondRow,
+            WinningPattern.ThirdRow,
+            WinningPattern.FirstColumn,
+            WinningPattern.SecondColumn,
+            WinningPattern.ThirdColumn,
+            WinningPattern.DiagonalFromLeftToRight,
+            WinningPattern.DiagonalFromRightToLeft
         };
 
         public Game(Presenter presenter)
@@ -27,7 +27,7 @@ namespace TicTacToe
             this.presenter = presenter;
             this.players = GeneratePlayers();
             this.board = GenerateBoard();
-            this.isWon = false;
+            this.hasWon = false;
         }
 
         private IList<Player> GeneratePlayers()
@@ -53,16 +53,16 @@ namespace TicTacToe
             presenter.Banner();
             presenter.DrawBoard(board);
 
-            while (!isWon)
+            while (!hasWon)
             {
                 foreach (var player in players)
                 {
                     int[] position = presenter.PlayerTurn(player);
                     board[position[0], position[1]] = player.ToString();
-                    isWon = IsTheGameWon(player);
+                    hasWon = HasTheGameWon(player);
                     presenter.DrawBoard(board);
 
-                    if (isWon == true)
+                    if (hasWon == true)
                     {
                         presenter.WinningMessage(player);
                         break;
@@ -71,7 +71,7 @@ namespace TicTacToe
             }
         }
 
-        public bool IsTheGameWon(Player player)
+        public bool HasTheGameWon(Player player)
         {
             foreach (var pattern in winningPatterns)
             {

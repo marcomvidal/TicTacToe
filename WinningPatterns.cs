@@ -2,7 +2,7 @@ using System;
 
 namespace TicTacToe
 {
-    static class WinningPatterns
+    static class WinningPattern
     {
         static public Func<string[,], Player, bool> FirstRow =
             (board, player) =>
