@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TicTacToe
 {
@@ -6,17 +7,28 @@ namespace TicTacToe
     {
         private Presenter presenter;
         private string[,] board;
-
-        public bool IsWon { get; private set; }
+        private bool isWon;
+        private IList<Func<string[,], Player, bool>> winningPatterns
+            = new List<Func<string[,], Player, bool>>()
+        {
+            WinningPatterns.FirstRow,
+            WinningPatterns.SecondRow,
+            WinningPatterns.ThirdRow,
+            WinningPatterns.FirstColumn,
+            WinningPatterns.SecondColumn,
+            WinningPatterns.ThirdColumn,
+            WinningPatterns.DiagonalFromLeftToRight,
+            WinningPatterns.DiagonalFromRightToLeft
+        };
 
         public Game(Presenter presenter)
         {
             this.presenter = presenter;
             this.board = GenerateBoard();
-            this.IsWon = false;
+            this.isWon = false;
         }
 
-        public string[,] GenerateBoard() {
+        private string[,] GenerateBoard() {
             return new string[3, 3]
             {
                 {"1", "2", "3"},
@@ -30,16 +42,16 @@ namespace TicTacToe
             presenter.Banner();
             presenter.DrawBoard(board);
 
-            while (!IsWon)
+            while (!isWon)
             {
                 foreach (Player player in Enum.GetValues(typeof(Player)))
                 {
                     int[] position = presenter.PlayerTurn(player);
                     board[position[0], position[1]] = player.ToString();
-                    IsWon = IsTheGameWon(player);
+                    isWon = IsTheGameWon(player);
                     presenter.DrawBoard(board);
 
-                    if (IsWon == true)
+                    if (isWon == true)
                     {
                         presenter.WinningMessage(player);
                         break;
@@ -50,18 +62,12 @@ namespace TicTacToe
 
         public bool IsTheGameWon(Player player)
         {
-            if (
-                    board[0, 0] == player.ToString() &&
-                    board[0, 1] == player.ToString() &&
-                    board[0, 2] == player.ToString()
-                )
+            foreach (var pattern in winningPatterns)
             {
-                return true;
+                if (pattern(board, player)) { return true; }
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
     }
 }

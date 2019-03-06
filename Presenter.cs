@@ -44,7 +44,7 @@ namespace TicTacToe
         {
             Console.WriteLine($"\n- {player.ToString()} turn -");
 
-            Console.Write("Select the numeric corresponding position to play: ");
+            Console.Write("Enter the number of the desired position to play: ");
             int chosenPosition = int.Parse(Console.ReadLine());
             
             return PositionParser(chosenPosition);
