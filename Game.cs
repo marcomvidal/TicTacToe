@@ -6,6 +6,7 @@ namespace TicTacToe
     class Game
     {
         private Presenter presenter;
+        private IList<Player> players;
         private string[,] board;
         private bool isWon;
         private IList<Func<string[,], Player, bool>> winningPatterns
@@ -24,8 +25,18 @@ namespace TicTacToe
         public Game(Presenter presenter)
         {
             this.presenter = presenter;
+            this.players = GeneratePlayers();
             this.board = GenerateBoard();
             this.isWon = false;
+        }
+
+        private IList<Player> GeneratePlayers()
+        {
+            return new List<Player>()
+            {
+                new Player() { Symbol = "X", Color = ConsoleColor.Blue },
+                new Player() { Symbol = "O", Color = ConsoleColor.Red }
+            };
         }
 
         private string[,] GenerateBoard() {
@@ -44,7 +55,7 @@ namespace TicTacToe
 
             while (!isWon)
             {
-                foreach (Player player in Enum.GetValues(typeof(Player)))
+                foreach (var player in players)
                 {
                     int[] position = presenter.PlayerTurn(player);
                     board[position[0], position[1]] = player.ToString();

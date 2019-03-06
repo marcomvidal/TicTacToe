@@ -1,7 +1,15 @@
+using System;
+
 namespace TicTacToe
 {
-    enum Player
+    class Player
     {
-        X, O
+        public string Symbol { get; set; }
+        public ConsoleColor Color { get; set; }
+
+        public override string ToString()
+        {
+            return Symbol;
+        }
     }
 }

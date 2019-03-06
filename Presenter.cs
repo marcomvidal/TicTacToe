@@ -42,7 +42,10 @@ namespace TicTacToe
 
         public int[] PlayerTurn(Player player)
         {
-            Console.WriteLine($"\n--- {player.ToString()} TURN ---");
+            SorroundWithPlayersColor(
+                player,
+                () => Console.WriteLine($"\n--- {player.ToString()} TURN ---")
+            );
 
             while (true)
             {
@@ -54,6 +57,16 @@ namespace TicTacToe
                 
                 return PositionParser(positionAsInteger);
             }
+        }
+
+        public void WinningMessage(Player player)
+        {
+            Console.Write("\nCongratulations! ");
+
+            SorroundWithPlayersColor(
+                player,
+                () => Console.WriteLine($"{player.ToString()} won!")
+            );
         }
 
         private int PositionValidator(string chosenPosition)
@@ -86,9 +99,11 @@ namespace TicTacToe
             }
         }
 
-        public void WinningMessage(Player player)
+        private void SorroundWithPlayersColor(Player player, Action messages)
         {
-            Console.WriteLine($"\nCongratulations! {player.ToString()} won!");
+            Console.ForegroundColor = player.Color;
+            messages();
+            Console.ResetColor();
         }
     }
 }
