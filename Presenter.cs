@@ -27,10 +27,11 @@ namespace TicTacToe
         public void DrawBoard(string[,] board)
         {
             var dashedLines = 0;
+            Console.Clear();
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                Console.WriteLine($" {board[i, 0]} | {board[i , 1]} | {board[i, 2]} ");
+                Console.WriteLine($" {board[i, 0]} | {board[i, 1]} | {board[i, 2]} ");
 
                 if (dashedLines >= 2) { break; }
 
@@ -39,10 +40,36 @@ namespace TicTacToe
             }
         }
 
-        public void PlayerTurn()
+        public int[] PlayerTurn(Player player)
         {
-            Console.WriteLine("- X turn -");
-            Console.WriteLine("Select the horizontal position:");
+            Console.WriteLine($"\n- {player.ToString()} turn -");
+
+            Console.Write("Select the numeric corresponding position to play: ");
+            int chosenPosition = int.Parse(Console.ReadLine());
+            
+            return PositionParser(chosenPosition);
+        }
+
+        private int[] PositionParser(int chosenPosition)
+        {
+            switch (chosenPosition) {
+                case 1: return new int[] {0, 0};
+                case 2: return new int[] {0, 1};
+                case 3: return new int[] {0, 2};
+                case 4: return new int[] {1, 0};
+                case 5: return new int[] {1, 1};
+                case 6: return new int[] {1, 2};
+                case 7: return new int[] {2, 0};
+                case 8: return new int[] {2, 1};
+                case 9: return new int[] {2, 2};
+                // Debug
+                default: throw new Exception("Illegal position");
+            }
+        }
+
+        public void WinningMessage(Player player)
+        {
+            Console.WriteLine($"\nCongratulations! {player.ToString()} won!");
         }
     }
 }
