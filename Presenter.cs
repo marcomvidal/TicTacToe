@@ -42,16 +42,32 @@ namespace TicTacToe
 
         public int[] PlayerTurn(Player player)
         {
-            Console.WriteLine($"\n- {player.ToString()} turn -");
+            Console.WriteLine($"\n--- {player.ToString()} TURN ---");
 
-<<<<<<< HEAD
-            Console.Write("Select the numeric corresponding position to play: ");
-=======
-            Console.Write("Enter the number of the desired position to play: ");
->>>>>>> master
-            int chosenPosition = int.Parse(Console.ReadLine());
-            
-            return PositionParser(chosenPosition);
+            while (true)
+            {
+                Console.Write("Enter the number of the desired position to play: ");
+
+                var chosenPosition = Console.ReadLine();
+                var positionAsInteger = PositionValidator(chosenPosition);
+                if (positionAsInteger == 0) { continue; }
+                
+                return PositionParser(positionAsInteger);
+            }
+        }
+
+        private int PositionValidator(string chosenPosition)
+        {
+            bool isInteger = int.TryParse(chosenPosition, out var positionAsInteger);
+            bool isOnRange = positionAsInteger > 0 && positionAsInteger < 10;
+
+            if (!isInteger || !isOnRange)
+            { 
+                Console.WriteLine("Enter a position between 1 and 9.\n");
+                return 0;
+            }
+
+            return positionAsInteger;
         }
 
         private int[] PositionParser(int chosenPosition)
@@ -66,7 +82,6 @@ namespace TicTacToe
                 case 7: return new int[] {2, 0};
                 case 8: return new int[] {2, 1};
                 case 9: return new int[] {2, 2};
-                // Debug
                 default: throw new Exception("Illegal position");
             }
         }
