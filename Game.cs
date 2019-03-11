@@ -7,10 +7,10 @@ namespace TicTacToe
     {
         private Presenter presenter;
         private IList<Player> players;
-        private string[,] board;
+        private Player[,] board;
         private bool isWon;
-        private IList<Func<string[,], Player, bool>> winningPatterns
-            = new List<Func<string[,], Player, bool>>()
+        private IList<Func<Player[,], Player, bool>> winningPatterns
+            = new List<Func<Player[,], Player, bool>>()
         {
             WinningPattern.FirstRow,
             WinningPattern.SecondRow,
@@ -18,8 +18,8 @@ namespace TicTacToe
             WinningPattern.FirstColumn,
             WinningPattern.SecondColumn,
             WinningPattern.ThirdColumn,
-            WinningPattern.DiagonalFromLeftToRight,
-            WinningPattern.DiagonalFromRightToLeft
+            WinningPattern.StraightDiagonal,
+            WinningPattern.ReverseDiagonal
         };
 
         public Game(Presenter presenter)
@@ -39,13 +39,8 @@ namespace TicTacToe
             };
         }
 
-        private string[,] GenerateBoard() {
-            return new string[3, 3]
-            {
-                {"1", "2", "3"},
-                {"4", "5", "6"},
-                {"7", "8", "9"}
-            };
+        private Player[,] GenerateBoard() {
+            return new Player[3, 3];
         }
 
         public void Play()
@@ -58,15 +53,11 @@ namespace TicTacToe
                 foreach (var player in players)
                 {
                     int[] position = presenter.PlayerTurn(player);
-                    board[position[0], position[1]] = player.ToString();
+                    board[position[0], position[1]] = player;
                     isWon = IsTheGameWon(player);
                     presenter.DrawBoard(board);
 
-                    if (isWon == true)
-                    {
-                        presenter.WinningMessage(player);
-                        break;
-                    }
+                    if (isWon == true) { presenter.WinningMessage(player); break; }
                 }
             }
         }

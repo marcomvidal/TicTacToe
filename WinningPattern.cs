@@ -4,52 +4,68 @@ namespace TicTacToe
 {
     static class WinningPattern
     {
-        static public Func<string[,], Player, bool> FirstRow =
-            (board, player) =>
-                board[0, 0] == player.ToString() &&
-                board[0, 1] == player.ToString() &&
-                board[0, 2] == player.ToString();
-        
-        static public Func<string[,], Player, bool> SecondRow =
-            (board, player) =>
-                board[1, 0] == player.ToString() &&
-                board[1, 1] == player.ToString() &&
-                board[1, 2] == player.ToString();
+        public static bool FirstRow(Player[,] board, Player player)
+        {
+            return
+                board[0, 0] == player &&
+                board[0, 1] == player &&
+                board[0, 2] == player;
+        }
 
-        static public Func<string[,], Player, bool> ThirdRow =
-            (board, player) =>
-                board[2, 0] == player.ToString() &&
-                board[2, 1] == player.ToString() &&
-                board[2, 2] == player.ToString();
+        public static bool SecondRow(Player[,] board, Player player)
+        {
+            return
+                board[1, 0] == player &&
+                board[1, 1] == player &&
+                board[1, 2] == player;
+        }
+                
+        public static bool ThirdRow(Player[,] board, Player player)
+        {
+            return
+                board[2, 0] == player &&
+                board[2, 1] == player &&
+                board[2, 2] == player;
+        }
 
-        static public Func<string[,], Player, bool> FirstColumn =
-            (board, player) =>
-                board[0, 0] == player.ToString() &&
-                board[1, 0] == player.ToString() &&
-                board[2, 0] == player.ToString();
+        public static bool FirstColumn(Player[,] board, Player player)
+        {
+            return
+                board[0, 0] == player &&
+                board[1, 0] == player &&
+                board[2, 0] == player;
+        }
 
-        static public Func<string[,], Player, bool> SecondColumn =
-            (board, player) =>
-                board[0, 1] == player.ToString() &&
-                board[1, 1] == player.ToString() &&
-                board[2, 1] == player.ToString();
+        public static bool SecondColumn(Player[,] board, Player player)
+        {
+            return
+                board[0, 1] == player &&
+                board[1, 1] == player &&
+                board[2, 1] == player;
+        }
 
-        static public Func<string[,], Player, bool> ThirdColumn =
-            (board, player) =>
-                board[0, 2] == player.ToString() &&
-                board[1, 2] == player.ToString() &&
-                board[2, 2] == player.ToString();
+        public static bool ThirdColumn(Player[,] board, Player player)
+        {
+            return
+                board[0, 2] == player &&
+                board[1, 2] == player &&
+                board[2, 2] == player;
+        }
 
-        static public Func<string[,], Player, bool> DiagonalFromLeftToRight =
-            (board, player) =>
-                board[0, 0] == player.ToString() &&
-                board[1, 1] == player.ToString() &&
-                board[2, 2] == player.ToString();
+        public static bool StraightDiagonal(Player[,] board, Player player)
+        {
+            return
+                board[0, 0] == player &&
+                board[1, 1] == player &&
+                board[2, 2] == player;
+        }
 
-        static public Func<string[,], Player, bool> DiagonalFromRightToLeft =
-            (board, player) =>
-                board[0, 2] == player.ToString() &&
-                board[1, 1] == player.ToString() &&
-                board[2, 0] == player.ToString();
+        public static bool ReverseDiagonal(Player[,] board, Player player)
+        {
+            return
+                board[0, 2] == player &&
+                board[1, 1] == player &&
+                board[2, 0] == player;
+        }
     }
 }
