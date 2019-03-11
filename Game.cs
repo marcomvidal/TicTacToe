@@ -8,7 +8,7 @@ namespace TicTacToe
         private Presenter presenter;
         private IList<Player> players;
         private string[,] board;
-        private bool hasWon;
+        private bool isWon;
         private IList<Func<string[,], Player, bool>> winningPatterns
             = new List<Func<string[,], Player, bool>>()
         {
@@ -27,7 +27,7 @@ namespace TicTacToe
             this.presenter = presenter;
             this.players = GeneratePlayers();
             this.board = GenerateBoard();
-            this.hasWon = false;
+            this.isWon = false;
         }
 
         private IList<Player> GeneratePlayers()
@@ -53,16 +53,16 @@ namespace TicTacToe
             presenter.Banner();
             presenter.DrawBoard(board);
 
-            while (!hasWon)
+            while (!isWon)
             {
                 foreach (var player in players)
                 {
                     int[] position = presenter.PlayerTurn(player);
                     board[position[0], position[1]] = player.ToString();
-                    hasWon = HasTheGameWon(player);
+                    isWon = IsTheGameWon(player);
                     presenter.DrawBoard(board);
 
-                    if (hasWon == true)
+                    if (isWon == true)
                     {
                         presenter.WinningMessage(player);
                         break;
@@ -71,7 +71,7 @@ namespace TicTacToe
             }
         }
 
-        public bool HasTheGameWon(Player player)
+        public bool IsTheGameWon(Player player)
         {
             foreach (var pattern in winningPatterns)
             {

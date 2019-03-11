@@ -44,7 +44,7 @@ namespace TicTacToe
         {
             SorroundWithPlayersColor(
                 player,
-                () => Console.WriteLine($"\n--- {player.ToString()} TURN ---")
+                () => Console.WriteLine($"\n--- {player.ToString()}'s TURN ---")
             );
 
             while (true)
