@@ -30,52 +30,43 @@ namespace TicTacToe
             int presentedPosition = 1;
             Console.Clear();
 
-            for (int i = 0; i < board.GetLength(0); i++)
+            for (int row = 0; row < board.GetLength(0); row++)
             {
-                //if (IsFilled(board[i, 0])) { Console.Write(" "); ColorizedPlayerSymbol(board[i, 0]); }
-                //else { Console.Write(" " + presentedPosition); }
-                //Console.Write(" | ");
+                for (int cell = 0; cell < board.GetLength(1); cell++)
+                {
+                    presentedPosition = DrawPosition(board[row, cell], presentedPosition);
+                }
 
-                //if (IsFilled(board[i, 1])) { ColorizedPlayerSymbol(board[i, 1]); }
-                //else { Console.Write(presentedPosition + 1); }
-                //Console.Write(" | ");
-
-                //if (IsFilled(board[i, 2])) { ColorizedPlayerSymbol(board[i, 2]); }
-                //else { Console.Write(presentedPosition + 2); }
-                //Console.WriteLine();
-
-                DrawLine(board[i, 0], presentedPosition);
-                DrawLine(board[i, 1], presentedPosition + 1);
-                DrawLine(board[i, 2], presentedPosition + 2);
-
-                /// It allows the next interation to consider the current counting to present the next
-                /// positions correctly
-                presentedPosition += 3;
-
-                /// Only two lines of dashed should be shown to represent the structure of the Tic
+                /// Only two dashed lines should be shown to represent the structure of the Tic
                 /// TacToe's board
-                if (dashedLines >= 2) { break; }
-                DashedLine(11, Spacing.After);
-                dashedLines++;
+                if (dashedLines < 2)
+                { 
+                    DashedLine(11, Spacing.After);
+                    dashedLines++;
+                }
             }
         }
 
-        private void DrawLine(Player item, int position)
+        private int DrawPosition(Player player, int position)
         {
-            if (IsFilled(item))
+            bool positionIsFilledWithPlayer = player != null;
+            
+            if (positionIsFilledWithPlayer)
             { 
-                Console.Write(" ");
-                ColorizedPlayerSymbol(item);
+                SorroundWithPlayersColor(player, () => Console.Write(" " + player));
             }
             else
             {
                 Console.Write(" " + position);
             }
 
-            bool isTheEndOfLine = position != 1 || position == 3;
+            bool isTheEndOfLine = position % 3 == 0;
 
             if (isTheEndOfLine) { Console.WriteLine(); }
-            else { Console.Write(" | "); }
+            else { Console.Write(" |"); }
+
+            position++;
+            return position;
         }
 
         public int[] PlayerTurn(Player player)
@@ -105,11 +96,6 @@ namespace TicTacToe
                 player,
                 () => Console.WriteLine($"{player.ToString()} won!")
             );
-        }
-
-        private bool IsFilled(Player position)
-        {
-            return position != null ? true : false;
         }
 
         private int PositionValidator(string chosenPosition)
@@ -142,17 +128,10 @@ namespace TicTacToe
             }
         }
 
-        private void ColorizedPlayerSymbol(Player player)
+        private void SorroundWithPlayersColor(Player player, Action consoleWriteInstructions)
         {
             Console.ForegroundColor = player.Color;
-            Console.Write(player.ToString());
-            Console.ResetColor();
-        }
-
-        private void SorroundWithPlayersColor(Player player, Action messages)
-        {
-            Console.ForegroundColor = player.Color;
-            messages();
+            consoleWriteInstructions();
             Console.ResetColor();
         }
     }
