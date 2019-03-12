@@ -52,12 +52,12 @@ namespace TicTacToe
             bool positionIsFilledWithPlayer = player != null;
             
             if (positionIsFilledWithPlayer)
-            { 
-                SorroundWithPlayersColor(player, () => Console.Write(" " + player));
+            {
+                ColorizeByPlayer(player, () => Console.Write($" {player}"));
             }
             else
             {
-                Console.Write(" " + position);
+                Console.Write($" {position}");
             }
 
             bool isTheEndOfLine = position % 3 == 0;
@@ -69,66 +69,13 @@ namespace TicTacToe
             return position;
         }
 
-        public int[] PlayerTurn(Player player)
-        {
-            SorroundWithPlayersColor(
-                player,
-                () => Console.WriteLine($"\n--- {player.ToString()}'s TURN ---")
-            );
-
-            while (true)
-            {
-                Console.Write("Enter the number of the desired position to play: ");
-
-                string chosenPosition = Console.ReadLine();
-                int positionAsInteger = PositionValidator(chosenPosition);
-                if (positionAsInteger == 0) { continue; }
-                
-                return PositionParser(positionAsInteger);
-            }
-        }
-
         public void WinningMessage(Player player)
         {
             Console.Write("\nCongratulations! ");
-
-            SorroundWithPlayersColor(
-                player,
-                () => Console.WriteLine($"{player.ToString()} won!")
-            );
+            ColorizeByPlayer(player, () => Console.WriteLine($"{player.ToString()} won!"));
         }
 
-        private int PositionValidator(string chosenPosition)
-        {
-            bool isInteger = int.TryParse(chosenPosition, out int positionAsInteger);
-            bool isOnRange = positionAsInteger > 0 && positionAsInteger < 10;
-
-            if (!isInteger || !isOnRange)
-            { 
-                Console.WriteLine("Enter a position between 1 and 9.\n");
-                return 0;
-            }
-
-            return positionAsInteger;
-        }
-
-        private int[] PositionParser(int chosenPosition)
-        {
-            switch (chosenPosition) {
-                case 1: return new int[] {0, 0};
-                case 2: return new int[] {0, 1};
-                case 3: return new int[] {0, 2};
-                case 4: return new int[] {1, 0};
-                case 5: return new int[] {1, 1};
-                case 6: return new int[] {1, 2};
-                case 7: return new int[] {2, 0};
-                case 8: return new int[] {2, 1};
-                case 9: return new int[] {2, 2};
-                default: throw new Exception("Illegal position");
-            }
-        }
-
-        private void SorroundWithPlayersColor(Player player, Action consoleWriteInstructions)
+        public void ColorizeByPlayer(Player player, Action consoleWriteInstructions)
         {
             Console.ForegroundColor = player.Color;
             consoleWriteInstructions();
