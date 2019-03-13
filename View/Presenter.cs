@@ -1,6 +1,7 @@
 using System;
+using TicTacToe.Core;
 
-namespace TicTacToe
+namespace TicTacToe.View
 {
     class Presenter
     {

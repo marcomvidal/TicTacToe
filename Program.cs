@@ -1,4 +1,7 @@
 ﻿using System;
+using TicTacToe.Core;
+using TicTacToe.Verification;
+using TicTacToe.View;
 
 namespace TicTacToe
 {

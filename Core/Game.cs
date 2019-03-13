@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using TicTacToe.Verification;
+using TicTacToe.View;
 
-namespace TicTacToe
+namespace TicTacToe.Core
 {
     class Game
     {
