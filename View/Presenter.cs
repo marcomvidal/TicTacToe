@@ -80,5 +80,11 @@ namespace TicTacToe.View
             consoleWriteInstructions();
             Console.ResetColor();
         }
+
+        public void Ending()
+        {
+            Console.WriteLine("\nPress any key to continue. . .");
+            Console.ReadKey();
+        }
     }
 }

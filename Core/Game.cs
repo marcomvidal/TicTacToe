@@ -53,6 +53,8 @@ namespace TicTacToe.Core
                     if (isOver) { break; }
                 }
             }
+
+            presenter.Ending();
         }
 
         public int[] PlayerTurn(Player player)
