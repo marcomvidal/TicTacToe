@@ -1,31 +1,33 @@
 # TicTacToe
 
-Jogo da velha (Tic Tac Toe) apresentado em uma aplicação Console. Implementa funcionalidades através da programação Orientada a Objetos e Funcional.
+Jogo da velha (Tic Tac Toe) apresentado em uma aplicação Console. Implementa funcionalidades através da programação orientada a objetos e funcional.
 
 ## Ferramentas utilizadas
 - C# 7.0
 - .NET Core 2.2
 
 ## Componentes
-- `Game`: Classe principal. Reune estado e fluxo do jogo;
-- `Finalizer`: Condições para finalização do jogo, seja por vitória ou empate;
-- `Player`: Entidade que representa o jogador;
-- `Presenter`: Mensagens e exibição da jogadas;
+- `Core`: Classes principais que controlam o fluxo e personagens do jogo;
+- `Verification`: Checagens de entrada do usuário, finalização do jogo e seus repectivos padrões;
+- `View`: Exibição de mensagens e renderização do tabuleiro;
 - `Program`: Inicialização e injeção de dependências;
-- `Spacing`: Enumerador para definição de espaçamento em mensagens do `Presenter`;
-- `Validator`: Validação das entradas de posição oriundas do usuário;
-- `WinningPattern`: Repositório
 
-## Repositórios
-Todas as operações realizadas - seja em ADO.NET ou Dapper - são rigorosamente as mesmas e estão descritas nas interfaces de `Repository`. Os tipos retornados são sempre aqueles contidos em `Model`. <br />
-O `Repository` padrão é `Dapper`. Para alternar, basta alterar a importação de `using CRUDMySQL.Repository.Dapper;` para `using CRUDMySQL.Repository.AdoNet;` em `Program`.
+## Core
+Controla estado e fluxo do jogo. Os jogadores são instâncias de `Player`, que são injetadas em `Game`. Foi adotada uma abordagem fortemente orientada a objetos, buscando forte coesão e desacoplamento.
 
-## Apresentação
-A camada de apresentação foi desenvolvida em Console, está contida em `View` e foi separada nas seguintes partes: <br />
-- `UserInterface`: Controla a interação do usuário, aciona o `Repository` quando necessário e possui todas as condicionais necessárias para lidar com possíveis erros de entrada. É invocada por `Program`, sendo o ponto de chamadas da aplicação; <br />
-- `Presenter`: Contém componentes da interface com o usuário que são puramente visuais ou que se repetem, como menus e formulários.
+## Verification
+Provavelmente a parte mais interessante deste projeto. Divide-se nas seguintes partes: <br />
+- `Finalizer`: Contém as condições onde o jogo é finalizado por vitória ou empate; <br />
+- `Validator`: Avalia as entradas do usuário e determina se serão aceitas ou novamente solicitadas; <br />
+- `WinningPattern`: A razão da existência deste projeto. É descrita em maiores detalhes mais adiante neste documento.
 
-## Desacoplamento das Views
-É possível implementar toda a lógica desta aplicação em aplicações desktop, web ou de qualquer outro tipo sem grandes alterações. Neste caso, basta ignorar o conteúdo de `View` e injetar as classes do `Repository` em formulários ou controladores de seu projeto.
+## View
+Exibe mensagens e o tabuleiro do jogo. Foi adotada uma abordagem mais funcional, fazendo uso de funções de primeira ordem para exibição de algumas informações que necessitem de estilização visual.
+
+## WinningPattern
+A forma mais óbvia de checar se algum dos jogadores venceu o jogo seria fazer um condicional com todos os padrões possíveis. Apesar de operante, esta abordagem é bastante deselegante e de difícil legibilidade. <br />
+Visando avaliar as virtudes da programação funcional, nesta classe foram desenvolvidas funções lambda (`Func<T1, ...>` em C#) que compõem uma lista de padrões para considerar se o jogo foi vencido por algum dos jogadores. <br />
+O resultado é bastante satisfatório. Caso seja necessário acrescentar novos padrões, basta criar uma nova função nesta classe e referenciá-la na lista `winningPatterns` da classe `Finalizer`. Esta abordagem se faz, deste modo, muito útil para checagem de padrões em geral.
+
 
 
