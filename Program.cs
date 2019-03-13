@@ -7,7 +7,9 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             var presenter = new Presenter();
-            var game = new Game(presenter);
+            var validator = new Validator();
+            var finalizer = new Finalizer(presenter);
+            var game = new Game(presenter, validator, finalizer);
 
             game.Play();
         }

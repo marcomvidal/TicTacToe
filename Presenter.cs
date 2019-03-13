@@ -26,7 +26,6 @@ namespace TicTacToe
 
         public void DrawBoard(Player[,] board)
         {
-            int dashedLines = 0;
             int presentedPosition = 1;
             Console.Clear();
 
@@ -37,13 +36,7 @@ namespace TicTacToe
                     presentedPosition = DrawPosition(board[row, cell], presentedPosition);
                 }
 
-                /// Only two dashed lines should be shown to represent the structure of the Tic
-                /// TacToe's board
-                if (dashedLines < 2)
-                { 
-                    DashedLine(11, Spacing.After);
-                    dashedLines++;
-                }
+                if (row < 2) { DashedLine(11, Spacing.After); }
             }
         }
 
@@ -73,6 +66,11 @@ namespace TicTacToe
         {
             Console.Write("\nCongratulations! ");
             ColorizeByPlayer(player, () => Console.WriteLine($"{player.ToString()} won!"));
+        }
+
+        public void TiedMessage()
+        {
+            Console.Write("\nThe game was tied. Try again!");
         }
 
         public void ColorizeByPlayer(Player player, Action consoleWriteInstructions)

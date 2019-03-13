@@ -8,26 +8,16 @@ namespace TicTacToe
         private Presenter presenter;
         private IList<Player> players;
         private Player[,] board;
-        private bool isWon;
-        private IList<Func<Player[,], Player, bool>> winningPatterns
-            = new List<Func<Player[,], Player, bool>>()
-        {
-            WinningPattern.FirstRow,
-            WinningPattern.SecondRow,
-            WinningPattern.ThirdRow,
-            WinningPattern.FirstColumn,
-            WinningPattern.SecondColumn,
-            WinningPattern.ThirdColumn,
-            WinningPattern.StraightDiagonal,
-            WinningPattern.ReverseDiagonal
-        };
+        private Validator validator;
+        private Finalizer finalizer;
 
-        public Game(Presenter presenter)
+        public Game(Presenter presenter, Validator validator, Finalizer finalizer)
         {
             this.presenter = presenter;
+            this.validator = validator;
+            this.finalizer = finalizer;
             this.players = GeneratePlayers();
             this.board = GenerateBoard();
-            this.isWon = false;
         }
 
         private IList<Player> GeneratePlayers()
@@ -47,17 +37,18 @@ namespace TicTacToe
         {
             presenter.Banner();
             presenter.DrawBoard(board);
+            bool isOver = false;
 
-            while (!isWon)
+            while (!isOver)
             {
                 foreach (var player in players)
                 {
                     int[] position = PlayerTurn(player);
                     board[position[0], position[1]] = player;
-                    isWon = IsTheGameWon(player);
                     presenter.DrawBoard(board);
 
-                    if (isWon == true) { presenter.WinningMessage(player); break; }
+                    isOver = finalizer.GameIsWon(board, player) || finalizer.BoardIsFilled(board);
+                    if (isOver) { break; }
                 }
             }
         }
@@ -71,11 +62,11 @@ namespace TicTacToe
                 Console.Write("Enter the number of the position you want to play: ");
 
                 string chosenPosition = Console.ReadLine();
-                int positionAsInteger;
+                int[] positionCoordinates;
 
                 try
                 {
-                    positionAsInteger = PositionValidator(chosenPosition);
+                    positionCoordinates = PositionValidation(chosenPosition);
                 }
                 catch (ApplicationException exception)
                 {
@@ -83,21 +74,20 @@ namespace TicTacToe
                     continue;
                 }
                 
-                return PositionParserToCoordinate(positionAsInteger);
+                return positionCoordinates;
             }
         }
 
-        private int PositionValidator(string chosenPosition)
+        private int[] PositionValidation(string chosenPosition)
         {
-            bool isNotAnInteger = !int.TryParse(chosenPosition, out int positionAsInteger);
-            bool isOutOfRange = !(positionAsInteger > 0 && positionAsInteger < 10);
+            validator.UserEntryIsAnAllowedValue(chosenPosition);
 
-            if (isNotAnInteger || isOutOfRange)
-            { 
-                throw new ApplicationException("Enter a position between 1 and 9.\n");
-            }
+            int positionAsInteger = int.Parse(chosenPosition);
+            int[] coordinates = PositionParserToCoordinate(positionAsInteger);
 
-            return positionAsInteger;
+            validator.PositionChosenIsNotPopulated(board[coordinates[0], coordinates[1]]);
+
+            return coordinates;
         }
 
         private int[] PositionParserToCoordinate(int chosenPosition)
@@ -114,16 +104,6 @@ namespace TicTacToe
                 case 9: return new int[] {2, 2};
                 default: throw new ApplicationException("Illegal position");
             }
-        }
-
-        public bool IsTheGameWon(Player player)
-        {
-            foreach (var pattern in winningPatterns)
-            {
-                if (pattern(board, player)) { return true; }
-            }
-            
-            return false;
         }
     }
 }
