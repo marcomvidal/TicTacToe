@@ -8,20 +8,20 @@ Jogo da velha (Tic Tac Toe) apresentado em uma aplicação Console. Implementa f
 
 ## Componentes
 - `Core`: Classes principais que controlam o fluxo e personagens do jogo;
-- `Verification`: Checagens de entrada do usuário, finalização do jogo e seus repectivos padrões;
-- `View`: Exibição de mensagens e renderização do tabuleiro;
+- `Verifiers`: Checagens de entrada do usuário, finalização do jogo e seus repectivos padrões;
+- `Views`: Exibição de mensagens e renderização do tabuleiro;
 - `Program`: Inicialização e injeção de dependências;
 
 ## Core
 Controla estado e fluxo do jogo. Os jogadores são instâncias de `Player`, que são injetadas em `Game`. Foi adotada uma abordagem fortemente orientada a objetos, buscando forte coesão e desacoplamento.
 
-## Verification
+## Verifiers
 Provavelmente a parte mais interessante deste projeto. Divide-se nas seguintes partes: <br />
 - `Finalizer`: Contém as condições onde o jogo é finalizado por vitória ou empate; <br />
 - `Validator`: Avalia as entradas do usuário e determina se serão aceitas ou novamente solicitadas; <br />
 - `WinningPattern`: A razão da existência deste projeto. É descrita em maiores detalhes mais adiante neste documento.
 
-## View
+## Views
 Exibe mensagens e o tabuleiro do jogo. Foi adotada uma abordagem mais funcional, fazendo uso de funções de primeira ordem para exibição de algumas informações que necessitem de estilização visual.
 
 ## WinningPattern
