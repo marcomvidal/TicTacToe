@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using TicTacToe.Core;
-using TicTacToe.View;
+using TicTacToe.Views;
 
-namespace TicTacToe.Verification
+namespace TicTacToe.Verifiers
 {
     class Finalizer
     {

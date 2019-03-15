@@ -1,4 +1,4 @@
-namespace TicTacToe.View
+namespace TicTacToe.Views
 {
     enum Spacing
     {

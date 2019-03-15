@@ -1,7 +1,7 @@
 using System;
 using TicTacToe.Core;
 
-namespace TicTacToe.Verification
+namespace TicTacToe.Verifiers
 {
     static class WinningPattern
     {
