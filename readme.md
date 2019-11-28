@@ -4,7 +4,7 @@ Jogo da velha (Tic Tac Toe) apresentado em uma aplicação Console. Implementa f
 
 ## Ferramentas utilizadas
 - C# 7.0
-- .NET Core 2.1
+- .NET Core 3.0
 
 ## Componentes
 - `Core`: Classes principais que controlam o fluxo e personagens do jogo;
@@ -30,7 +30,8 @@ Visando avaliar as virtudes da programação funcional, nesta classe foram desen
 O resultado é bastante satisfatório. Caso seja necessário acrescentar novos padrões, basta criar uma nova função nesta classe e referenciá-la na lista `winningPatterns` da classe `Finalizer`. Esta abordagem se faz, deste modo, muito útil para checagem de padrões em geral.
 
 ## Execução
-O jogo pode ser executado abrindo o arquivo `TicTacToe.exe`, presente em `bin\Release\netcoreapp2.1\win7-x86`. Foi inicialmente compilado para Windows 7 x86, mas também pode sê-lo para Linux ou outras variações de Windows.
+O jogo pode ser executado abrindo o arquivo `TicTacToe.exe`, presente em `/publish`. Foi inicialmente compilado para Windows 7 x86, mas também pode sê-lo para Linux ou outras variações de Windows.<br>
+O Windows SmartScreen pode alertá-lo sobre a execução, uma vez que o aplicativo não possui assinatura digital. Neste caso, basta selecionar "Executar assim mesmo".
 
 ## Screenshots
 * [Jogatina](https://raw.githubusercontent.com/marcomvidal/TicTacToe/master/screenshot_turnos.png)
