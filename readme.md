@@ -3,7 +3,7 @@
 Jogo da velha (Tic Tac Toe) apresentado em uma aplicação Console. Implementa funcionalidades através da programação orientada a objetos e funcional.
 
 ## Ferramentas utilizadas
-- C# 7.0
+- C# 8.0
 - .NET Core 3.0
 
 ## Componentes
